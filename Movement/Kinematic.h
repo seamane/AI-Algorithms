@@ -17,20 +17,25 @@ struct Kinematic
 	VectorOrPoint position;
 	float orientation;//facing direction
 	VectorOrPoint velocity;
-	float rotation;//process of changing orientation
+	float rotation;//process of changing orientation. Angular velocity in radians/sec
 
-	void update(struct SteeringOutput steering,float time)
+	void update(struct SteeringOutput steering,int maxSpeed, float time)
 	{
 
 		//update the position and orientation
 		position = position.add(velocity.multiply(time).add(steering.linear.multiply(.5*time*time)));
-//		position += (velocity * time) + (.5 * steering.linear * time * time);
 		orientation += (rotation * time) + (.5 * steering.angular * time * time);
 
 		//and the velocity and rotation
 		velocity = velocity.add(steering.linear.multiply(time));
-//		velocity += steering.linear * time;
-		rotation += steering.angular * time;
+		orientation += steering.angular * time;
+
+		//check for speeding and clip
+		if (velocity.magnitude() > maxSpeed)
+		{
+			velocity.normalize();
+			velocity = velocity.multiply(maxSpeed);
+		}
 	}
 
 	float getNewOrientation(float currentOrientation,VectorOrPoint velocity)
@@ -43,6 +48,17 @@ struct Kinematic
 		{
 			return currentOrientation;
 		}
+	}
+
+	VectorOrPoint getOrientationAsVector()
+	{
+		//rotate (0,0,1) around y-axis by orientation degrees
+
+//		 | cos θ    0   sin θ| |x|   | x cos θ + z sin θ|   |x'|
+//		 |   0      1       0| |y| = |         y        | = |y'|
+//	     |−sin θ    0   cos θ| |z|   |−x sin θ + z cos θ|   |z'|
+
+		return VectorOrPoint(sin(orientation),0,cos(orientation),0);
 	}
 };
 

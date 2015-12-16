@@ -13,7 +13,7 @@
 struct SteeringOutput
 {
 	VectorOrPoint linear;
-	float angular;
+	float angular;//angular velocity in radians/sec
 };
 
 

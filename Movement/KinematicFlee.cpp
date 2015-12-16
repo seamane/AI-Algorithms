@@ -1,26 +1,26 @@
 /*
- * KinematicSeek.cpp
+ * KinematicFlee.cpp
  *
- *  Created on: Dec 11, 2015
+ *  Created on: Dec 13, 2015
  *      Author: ericseaman
  */
 
-#include "KinematicSeek.h"
+#include "KinematicFlee.h"
 
-KinematicSeek::KinematicSeek(float maxSpeed) {
+KinematicFlee::KinematicFlee(float maxSpeed) {
 	// TODO Auto-generated constructor stub
 	this->maxSpeed = maxSpeed;
 }
 
-KinematicSeek::~KinematicSeek() {
+KinematicFlee::~KinematicFlee() {
 	// TODO Auto-generated destructor stub
 }
 
-KinematicSteeringOutput KinematicSeek::getSteering()
+KinematicSteeringOutput KinematicFlee::getSteering()
 {
 	KinematicSteeringOutput steering;
-	//get direction to target
-	steering.velocity = target.position.subtract(character.position);
+	//get direction away from target
+	steering.velocity = character.position.subtract(target.position);
 
 	//the velocity is along this direction at full speed
 	steering.velocity.normalize();

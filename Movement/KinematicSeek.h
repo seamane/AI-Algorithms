@@ -8,9 +8,9 @@
 #ifndef MOVEMENT_KINEMATICSEEK_H_
 #define MOVEMENT_KINEMATICSEEK_H_
 #include "Kinematic.h"
-#include "KinematicSteeringOutput.h"
+#include "KinematicType.h"
 
-class KinematicSeek {
+class KinematicSeek : public KinematicType{
 public:
 	KinematicSeek(float maxSpeed);
 	~KinematicSeek();
