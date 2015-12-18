@@ -8,7 +8,7 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 
-#include "Movement/Kinematic.h"
+#include "Movement/Kinematics/Kinematic.h"
 
 class Character {
 public:

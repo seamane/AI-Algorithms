@@ -7,6 +7,7 @@
 
 #include "VectorOrPoint.h"
 #include <sstream>
+#include <math.h>
 
 
 VectorOrPoint::VectorOrPoint(float x,float y,float z,float w)

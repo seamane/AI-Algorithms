@@ -5,18 +5,34 @@
  *      Author: ericseaman
  */
 
-#ifndef CHARACTER_H_
-#define CHARACTER_H_
+#ifndef VECTORORPOINT_H_
+#define VECTORORPOINT_H_
 
-#include "Movement/Kinematic.h"
+#include <string>
 
-class Character {
+using namespace std;
+
+class VectorOrPoint
+{
 public:
-	Character();
-	virtual ~Character();
+	VectorOrPoint(float x,float y,float z,float w);
+	VectorOrPoint();
+	~VectorOrPoint();
 
-private:
-	Kinematic kinematic;
+	string toString();
+	VectorOrPoint multiply(float d) const;
+	VectorOrPoint subtract(const VectorOrPoint &sub) const;
+	VectorOrPoint add(const VectorOrPoint &add);
+	inline float magnitude();
+	inline float dotProduct(const VectorOrPoint &other) const;
+	float angleBetween(VectorOrPoint other);
+	VectorOrPoint crossProductWith(const VectorOrPoint &other) const;
+	void normalize();
+	void homogenize();
+	inline bool isVector();
+	inline bool isPoint();
+
+	float x,y,z,w;
 };
 
-#endif /* CHARACTER_H_ */
+#endif /* VECTORORPOINT_H_ */
